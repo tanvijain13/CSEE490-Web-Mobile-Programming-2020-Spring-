@@ -2,48 +2,52 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Calculator</title>
+  <title>To Do List</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
-<body>
-<div class="container align-middle h-100">
-  <div class="row h-100 justify-content-center align-items-center">
-    <h1>Calculator to perform basic operations</h1>
+<body class="text-white">
+<div class="container" >
+  <div class="row">
+    <div class="col-12 text-center">
+      <h2 style="margin-top: 40px;">TODO LIST</h2>
+    </div>
   </div>
-  <div class="row h-100 justify-content-center align-items-center calculatorCenter">
-    <div class="border border-dark col-sm-3">
-      <div class="row border border-dark " style="background-color: lightgrey">
-        <div class="col-sm-12 text-right">
-          <h4>{{currentNumber}}</h4>
+  <!--code to create form for user to add new task-->
+  <form #addItem = "ngForm" (ngSubmit)="submitNewItem(addItem.value)">
+    <div class=" col-12 form-group row text-center" style="margin-top: 40px;">
+      <div class="col-10 ">
+        <input type="text" class="form-control" style="height: 40px" name="taskName" ngModel/>
+      </div>
+      <div class="col-2">
+      <button type="submit" class="btn btn-info">Add Task</button>
+      </div>
+    </div>
+  </form>
+  <!--Displaying pending items list-->
+  <div class="text-center" style="padding-top: 30px"><h3>PENDING TASKS</h3></div>
+  <div class="row ">
+    <div class="col-12">
+      <!--check if there are pending items present-->
+      <div *ngIf="items.length > 0">
+        <div *ngFor="let item of items; let id = index">
+          <div class="ml-1 mr-1 row itemList border border-secondary" style="height: 40px">
+            <div class="col-10" style="padding: 10px" >
+              <div class="text-left" (click)="completeItem(item)">{{item}}</div>
+            </div>
+            <div class="col-2 text-right" style="padding: 10px">
+              <button (click)="deleteItem(item)">DELETE</button>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="row">
-        <button class="btn btn-primary col-sm-3 border border-dark" (click)="num('1')">1</button>
-        <button class="btn btn-primary col-sm-3 border border-dark" (click)="num('2')">2</button>
-        <button class="btn btn-primary col-sm-3 border border-dark" (click)="num('3')">3</button>
-        <button class="btn btn-danger col-sm-3 border border-dark" (click)="operation('/')">/</button>
-      </div>
-      <div class="row border border-dark">
-        <button class="btn btn-warning col-sm-3 border border-dark" (click)="num('4')">4</button>
-        <button class="btn btn-warning col-sm-3 border border-dark" (click)="num('5')">5</button>
-        <button class="btn btn-warning col-sm-3 border border-dark" (click)="num('6')">6</button>
-        <button class="btn btn-danger col-sm-3 border border-dark" (click)="operation('*')">*</button>
-      </div>
-      <div class="row border border-dark">
-        <button class="btn btn-primary col-sm-3 border border-dark" (click)="num('7')">7</button>
-        <button class="btn btn-primary col-sm-3 border border-dark" (click)="num('8')">8</button>
-        <button class="btn btn-primary col-sm-3 border border-dark" (click)="num('9')">9</button>
-        <button class="btn btn-danger col-sm-3 border border-dark" (click)="operation('+')">+</button>
-      </div>
-      <div class="row border border-dark">
-        <button class="btn btn-light col-sm-3 border border-dark" (click)="num('0')">0</button>
-        <button class="btn btn-light col-sm-3 border border-dark" (click)="operation('=')">=</button>
-        <button class="btn btn-light col-sm-3 border border-dark" (click)="clear()">C</button>
-        <button class="btn btn-danger col-sm-3 border border-dark" (click)="operation('-')">-</button>
+      <!--check if there are pending items are not present-->
+      <div class="itemList" *ngIf="items.length == 0">
+        <h4>No Pending Tasks</h4>
       </div>
     </div>
   </div>
-</div>
 
+</div>
 </body>
 </html>
+

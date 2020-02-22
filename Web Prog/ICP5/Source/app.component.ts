@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -6,60 +7,39 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'CalculatorICP';
-  currentNumber = '0';
-  previousNumber = null;
-  operator = null;
-  waitForSecondNumber = false;
-  // code to store numbers from users
-  num(v: string) {
-    console.log(v);
-    if (this.waitForSecondNumber) {
-      this.currentNumber = v;
-      this.waitForSecondNumber = false;
+  items = []; // define list of pending items
+  comItems = []; // define list of completed items
+
+  // code to push new item
+  submitNewItem(event) {
+    const index: number = this.items.indexOf(event.taskName);
+    if (index !== -1) {
+      alert('Item already exists');
     } else {
-      this.currentNumber === '0' ? this.currentNumber = v : this.currentNumber += v;
-
+      this.items.push(event.taskName);
     }
   }
-  // code to perform operations
-  doCalculation(op , secondOp) {
-    switch (op) {
-      case '+':
-        return this.previousNumber += secondOp;
-      case '-':
-        return this.previousNumber -= secondOp;
-      case '*':
-        return this.previousNumber *= secondOp;
-      case '/':
-        return this.previousNumber /= secondOp;
-      case '=':
-        return secondOp;
+
+  // code to complete item and push it into complete item list
+  completeItem(item: string) {
+    const index: number = this.items.indexOf(item);
+    if (index !== -1) {
+      this.items.splice(index, 1);
+      this.comItems.push(item);
     }
   }
-  // code to get the operator
-  operation(op: string) {
-    console.log(op);
 
-    if (this.previousNumber === null) {
-      this.previousNumber = Number(this.currentNumber);
-
-    } else if (this.operator) {
-      const result = this.doCalculation(this.operator , Number(this.currentNumber))
-      this.currentNumber = String(result);
-      this.previousNumber = result;
+  // code to delete item either from completed or pending items list
+  deleteItem(item: string) {
+    let index: number = this.items.indexOf(item);
+    if (index !== -1) {
+      this.items.splice(index, 1);
+    } else {
+      index = this.comItems.indexOf(item);
+      if (index !== -1) {
+        this.comItems.splice(index, 1);
+      }
     }
-    this.operator = op;
-    this.waitForSecondNumber = true;
-
-    console.log(this.previousNumber);
-
   }
-  // code to reset everything
-  clear() {
-    this.currentNumber = '0';
-    this.previousNumber = null;
-    this.operator = null;
-    this.waitForSecondNumber = false;
-  }
+
 }
