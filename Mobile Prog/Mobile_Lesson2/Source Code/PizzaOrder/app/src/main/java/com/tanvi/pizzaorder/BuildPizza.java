@@ -27,7 +27,7 @@ public class BuildPizza extends AppCompatActivity implements AdapterView.OnItemS
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buildpizza);
-
+     //saving the summary in the string
         Button Summary  = (Button)findViewById(R.id.summary);
         Summary.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +114,7 @@ public class BuildPizza extends AppCompatActivity implements AdapterView.OnItemS
     }
 
     /**
-     * This method increments the quantity of coffee cups by one
+     * This method increments the quantity of  by one
      *
      * @param view on passes the view that we are working with to the method
      */

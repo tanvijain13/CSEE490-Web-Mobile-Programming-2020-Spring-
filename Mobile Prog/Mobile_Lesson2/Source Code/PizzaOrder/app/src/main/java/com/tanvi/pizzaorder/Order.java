@@ -25,7 +25,7 @@ public class Order extends AppCompatActivity {
             public void onClick(View view) {
 
                 String subject  = "Order details for: " + Name;
-
+             //calling the email function
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"pizza@abc.com"});
                 intent.putExtra(Intent.EXTRA_SUBJECT,subject);
